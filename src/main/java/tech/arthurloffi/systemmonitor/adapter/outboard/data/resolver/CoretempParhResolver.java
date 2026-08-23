@@ -1,4 +1,4 @@
-package tech.arthurloffi.systemmonitor.adapter.outboard.data.adapter;
+package tech.arthurloffi.systemmonitor.adapter.outboard.data.resolver;
 
 import org.springframework.stereotype.Component;
 

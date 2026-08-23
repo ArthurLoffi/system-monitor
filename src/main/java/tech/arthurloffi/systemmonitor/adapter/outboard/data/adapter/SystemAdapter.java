@@ -1,7 +1,8 @@
 package tech.arthurloffi.systemmonitor.adapter.outboard.data.adapter;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import tech.arthurloffi.systemmonitor.adapter.outboard.data.resolver.CoretempParhResolver;
+import tech.arthurloffi.systemmonitor.adapter.outboard.data.resolver.NvidiaSmiResolver;
 import tech.arthurloffi.systemmonitor.domain.exception.SensorReadException;
 import tech.arthurloffi.systemmonitor.domain.ports.SystemPort;
 
@@ -13,9 +14,11 @@ import java.nio.file.Path;
 public class SystemAdapter implements SystemPort {
 
     private final CoretempParhResolver resolver;
+    private final NvidiaSmiResolver nvidiaSmiReader;
 
-    public SystemAdapter(CoretempParhResolver resolver) {
+    public SystemAdapter(CoretempParhResolver resolver, NvidiaSmiResolver nvidiaSmiReader) {
         this.resolver = resolver;
+        this.nvidiaSmiReader = nvidiaSmiReader;
     }
 
     @Override
@@ -31,7 +34,14 @@ public class SystemAdapter implements SystemPort {
 
     @Override
     public Float getTempGPU() {
-        return 30.0f;
+        try {
+            return nvidiaSmiReader.readGpuTemp();
+        } catch (IOException | InterruptedException e) {
+            if (e instanceof InterruptedException) {
+                Thread.currentThread().interrupt();
+            }
+            throw new SensorReadException("Error to read GPU temp: ", e);
+        }
     }
 
     @Override
