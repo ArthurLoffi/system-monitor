@@ -1,3 +1,3 @@
 package tech.arthurloffi.systemmonitor.domain.dto;
 
-public record SystemDto(Integer Rpm, Float TempCPU, Float TempGPU) {}
+public record SystemDto(Integer Rpm, Float TempCPU, String TempGPU) {}

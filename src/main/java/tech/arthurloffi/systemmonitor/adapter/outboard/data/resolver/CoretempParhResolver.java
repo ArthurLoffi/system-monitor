@@ -29,7 +29,7 @@ public class CoretempParhResolver {
         throw new IOException("Driver coretemp not found in any hwmon");
     }
 
-    private Optional<Path> findPackageLabelInput(Path hwmonDir) throws IOException {
+    public static Optional<Path> findPackageLabelInput(Path hwmonDir) throws IOException {
         try (Stream<Path> files = Files.list(hwmonDir)) {
             for (Path labelFile : files.filter(p -> p.getFileName().toString().matches("temp\\d+_label")).toList()) {
                 String label = Files.readString(labelFile).trim();

@@ -8,6 +8,6 @@ public interface SystemPort {
 
     Float getTempGPU();
 
-    Integer getRpm();
+    String getRpm();
 
 }
