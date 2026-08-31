@@ -25,7 +25,7 @@ public class SystemUseCase {
         return systemPort.getTempGPU();
     }
 
-    public Integer getRpm() {
+    public String getRpm() {
         log.info("[execute] Getting RPM from fans");
 
         return systemPort.getRpm();

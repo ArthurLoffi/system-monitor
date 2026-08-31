@@ -23,7 +23,7 @@ public class SystemController {
     }
 
     @RequestMapping("/rpm")
-    public Integer getRpm() {
+    public String getRpm() {
         return systemUseCase.getRpm();
     }
 }
